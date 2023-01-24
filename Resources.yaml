@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: nginx-rs
+  labels:
+    app: nginx
+spec:
+  minReadySeconds: 6
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx
+      env: qa
+  template: 
+    metadata:
+      name: nginx-pod
+      labels: 
+        app: nginx
+        version: 1.24
+        env: qa
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.24
+          ports:
+            - containerPort: 80
+              name: nginx-container
+              protocol: TCP
+          resources: 
+            requests:
+              memory: "256Mi"
+            limits:
+              memory: "512Mi"

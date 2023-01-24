@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ds
+  labels:
+    app: jenkins
+spec: 
+  minReadySeconds: 6
+  selector:
+    matchLabels:
+      app: jenkins
+      ver: 2.60.3
+  template:
+    metadata:
+      name: daemon-pod
+      labels: 
+        app: jenkins
+        ver: 2.60.3
+    spec: 
+      containers: 
+        - name: daemon-container
+          image: jenkins:2.60.3
+          ports: 
+            - containerPort: 8080
+              protocol: TCP

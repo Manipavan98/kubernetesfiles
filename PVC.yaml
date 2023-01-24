@@ -1,0 +1,11 @@
+apiVersion: PersistentVolumeClaim
+kind: v1
+metadata:
+  name: mysql-claim
+spec: 
+  accessModes: 
+    - ReadWriteOnce
+  storageClassName: gp2
+  resources:
+    requests:
+      storage: 1Gi

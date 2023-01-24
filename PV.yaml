@@ -1,0 +1,28 @@
+apiVersion: Pod
+kind: v1
+metadata:
+  name: mysql-pvc
+spec:
+  containers:
+    - name: mysql-container
+      image: mysql:8-debian
+      ports:
+        - containerPort: 42000
+          protcol: TCP
+          env: 
+            - name: MYSQL_ROOT_PASSWORD
+              value: rootroot
+            - name: MYSQL_DATABASE
+              value: employees
+            - name: MYSQL_USER
+              value: qtdevops
+            - name: MYSQL_PASSWORD
+              value: qtdevops
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql
+  volumes:
+    - name: mysql-vol
+      persistentVolumeClaim:
+        claimName: mysql-claim
+        readonly: false

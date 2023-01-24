@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: my-namespace
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata: 
+  name: cron-job
+  namespace: my-namespace
+spec:
+  backoffLimit: 6
+  manualSelector: true
+  selector:
+    matchlabels:
+      purpose: execute
+  template:
+    metadata:
+      name: CronJob-pod
+      namespace: my-namespace
+      labels:
+        purpose: execute
+    spec:
+      containers:
+        - name: cronjob-container
+          image: alpine:3
+          command:
+            - sleep
+            - 60s
